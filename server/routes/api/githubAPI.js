@@ -6,5 +6,6 @@ router.get('/repos', githubAPIController.getUserRepos); // getting all repos bel
 router.get("/repos/:owner/:repo/languages", githubAPIController.getRepoLanguages); // getting user languages / tech stack
 router.get("/repos/:owner/:repo/commits", githubAPIController.getCommitHistory); // getting commit history
 router.get("/:user/starred", githubAPIController.getStarredRepos); // getting starred repos
+router.get("/user", githubAPIController.getUserId); // getting user details
 
 module.exports = router;

@@ -23,6 +23,29 @@ const getUserRepos = async (req, res) => {
     }
 };
 
+const getUserId = async (req, res) => {
+
+    try {
+        const { authorization } = req.headers;
+
+    if (!authorization) {
+        return res.status(401).json({ error: "Unauthorized - No token provided" });
+    }
+
+    const githubResponse = await axios.get("https://api.github.com/user", {
+        headers: {
+            Authorization: authorization, // Ensure correct format
+            Accept: "application/vnd.github.v3+json",
+        },
+    });
+
+    res.json(githubResponse.data);
+    } catch (error) {
+        console.error("Error fetching GitHub Profile Details:", error.response?.data || error.message);
+        res.status(500).json({ error: "Failed to fetch profile details." });
+    }
+};
+
 const getRepoLanguages = async (req, res) => {
     try {
         const { authorization } = req.headers;
@@ -100,8 +123,11 @@ const getStarredRepos = async (req, res) => {
     }
 };
 
+
+
 module.exports = { getUserRepos,
                    getStarredRepos,
                    getCommitHistory,
-                   getRepoLanguages
-                };
+                   getRepoLanguages,
+                   getUserId
+                 };

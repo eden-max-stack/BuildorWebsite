@@ -7,6 +7,8 @@ const cookieParser = require('cookie-parser');
 const credentials = require('./middleware/credentials');
 const path = require('path');
 const bodyParser = require("body-parser");
+// require("./cron/Agenda"); // Import Agenda jobs
+
 
 const app = express();
 const PORT = process.env.PORT || 8087;
@@ -37,7 +39,20 @@ app.use(cookieParser());
 const githubRoutes = require("./routes/api/githubAPI");
 app.use('/api/github', githubRoutes);
 
-app.use('/api/save-data', require('./routes/api/save-data'));
+// save profile
+app.use('/api/users', require('./routes/api/users'));
+
+// get trending tech stack
+app.use('/api/trends', require('./routes/api/trends'));
+
+// run code
+app.use('/api/coding/run', require('./routes/api/coding/runCode'));
+
+// coding problems
+app.use('/api/problems', require('./routes/api/problems'));
+
+// fetch tech stack recommendation
+app.use("/api/recommendations", require('./routes/api/recommendation'));
 
 // error handler
 app.use(errorHandler);

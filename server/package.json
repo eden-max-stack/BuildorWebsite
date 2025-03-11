@@ -10,15 +10,20 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "agenda": "^5.0.0",
     "axios": "^1.8.1",
     "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
+    "esprima": "^4.0.1",
     "express": "^4.21.2",
     "fs": "^0.0.1-security",
-    "path": "^0.12.7"
+    "google-trends-api": "^4.9.2",
+    "path": "^0.12.7",
+    "serpapi": "^2.1.0",
+    "test.js": "^1.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
