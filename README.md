@@ -37,21 +37,21 @@
 
 ### **1️⃣ Clone the Repository**  
 ```sh
-git clone https://github.com/your-username/buildor.git
+git clone git@github.com:eden-max-stack/BuildorWebsite.git
 cd buildor
 ```
 
 ### **2️⃣ Install Dependencies**  
 #### **Backend**  
 ```sh
-cd backend
-npm install
+cd server
+npm install express path date-fns cors
 ```
 
 #### **Frontend**  
 ```sh
-cd frontend
-npm install
+cd client
+npm install axios @mui/material @emotion/react @emotion/styled 
 ```
 
 ### **3️⃣ Set Up Environment Variables**  
@@ -60,7 +60,16 @@ Create a `.env` file in the backend directory with the following:
 MONGO_URI=your_mongodb_uri
 GITHUB_CLIENT_ID=your_github_client_id
 GITHUB_CLIENT_SECRET=your_github_client_secret
-JWT_SECRET=your_jwt_secret
+```
+
+Create a `.env` file in the frontend directory and import your firebase credentials from [here](console.firebase.google.com):  
+```env
+VITE_FIREBASE_API_KEY=""
+VITE_FIREBASE_AUTH_DOMAIN=""
+VITE_FIREBASE_PROJECT_ID=""
+VITE_FIREBASE_STORAGE_BUCKET=""
+VITE_FIREBASE_MESSAGING_SENDER_ID=""
+VITE_FIREBASE_APP_ID=""
 ```
 
 ---
@@ -69,8 +78,8 @@ JWT_SECRET=your_jwt_secret
 
 ### **Start Backend Server**  
 ```sh
-cd backend
-npm run dev
+cd server
+node server.js
 ```
 
 ### **Start Frontend**  
@@ -79,7 +88,7 @@ cd frontend
 npm run dev
 ```
 
-The app will be available at: **`http://localhost:3000`** 🎯  
+The app will be available at: **`http://localhost:5173`** 🎯  
 
 ---
 
