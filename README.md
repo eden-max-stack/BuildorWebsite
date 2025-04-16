@@ -1,4 +1,4 @@
-# **Buildor - AI-Powered Coding Practice Platform**   
+[# **Buildor - AI-Powered Coding Practice Platform**   
 
 ## **📌 Overview**  
 **Buildor** is an **AI-driven coding practice platform** designed for **CS students** to enhance their coding skills. It features:  
@@ -7,6 +7,11 @@
 ✅ **GitHub profile analysis** for skill assessment.  
 ✅ **Tech stack recommendations** based on coding history.  
 ✅ **University tracking system** for assignments, student rankings, and recruiter tools.  
+
+## **🎥 Demo Video**
+[![Watch the Demo](https://img.shields.io/badge/Watch%20Demo-Click%20Here-blue?style=for-the-badge)](https://drive.google.com/file/d/1k7YmHfWDa9LAMI13XD6ENo-EpHyq1Q-D/view?usp=sharing)
+
+> Click the badge above to watch the demo video.
 
 ## **🚀 Features**  
 ### **🔹 Coding Practice & AI Hints**  
@@ -88,6 +93,18 @@ cd frontend
 npm run dev
 ```
 
+### **Start Recommendation Engine**  
+```sh
+cd python_files
+py recommendation_engine.py
+```
+
+### **Start Code Parser Backend**  
+```sh
+cd python_files
+py code_parser.py
+```
+
 The app will be available at: **`http://localhost:5173`** 🎯  
 
 ---
@@ -102,6 +119,9 @@ The app will be available at: **`http://localhost:5173`** 🎯
 ✅ **Leaderboard for student rankings**  
 ✅ **Automated plagiarism detection**  
 ✅ **More ML-based personalized learning suggestions**  
+✅ **Enhancement of UI/UX**  
+✅ **Code Hint Generation System Optimization**  
+✅ **More Dashboard Functionalities**  
 
 ---
 
@@ -114,3 +134,4 @@ This project is **open-source** under the [MIT License](LICENSE).
 💡 **Akshada Kashyap** ([@eden-max-stack](https://github.com/eden-max-stack))  
 
 Contributions are welcome! **Feel free to fork, open issues, or submit PRs.** 🚀  
+](https://drive.google.com/file/d/1RAdt4GDc8-QWoIj4sw7olrMs35C_Xiai/view?usp=sharing)
