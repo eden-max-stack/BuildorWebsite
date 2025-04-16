@@ -1,0 +1,27 @@
+[
+    {
+      "name": "BinOp_Addition",
+      "code": "def f(a, b): return a + b",
+      "user_code": "def f(a, b): return a + b",
+      "variables": ["a", "b"]
+    },
+    {
+      "name": "BinOp_Multiply",
+      "code": "def f(a): return a * 10",
+      "user_code": "def f(a): return a * 11",
+      "variables": ["a"]
+    },
+    {
+      "name": "Compare_Equality",
+      "code": "def f(x): return x == 5",
+      "user_code": "def f(x): return x == 5",
+      "variables": ["x"]
+    },
+    {
+      "name": "Compare_Chained",
+      "code": "def f(x): return 3 <= x <= 7",
+      "user_code": "def f(x): return 3 <= x <= 7",
+      "variables": ["x"]
+    }
+  ]
+  

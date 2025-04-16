@@ -11,13 +11,15 @@ import CodingPractice from './CodingPractice';
 import AddQuestion from './AddQuestion';
 import Settings from './Settings';
 import { Container } from '@mui/material';
+import NewPage from './NewPage';
+import Chatbot from './Chatbot';
 
 const App: React.FC = () => {
   return(
     <Container sx = {{ backgroundColor: "transparent", backgroundImage: "none"}}>
       <Router>
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          {/* <Route path="/" element={<LandingPage />} /> */}
           <Route path="/register"element={<Register />} />
           <Route path="/login"element={<Login />} />
           <Route path="/dashboard"element={<Dashboard />} />
@@ -28,7 +30,9 @@ const App: React.FC = () => {
           <Route path="/coding-practice/:problemId" element={<CodingPractice />} />
           <Route path="/coding-practice/add-question" element={<AddQuestion />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/profile-setup" element={<ProfileSetup />} />
+          <Route path="/profile-setup" element={<ProfileSetup />} /> 
+          <Route path="/chatbot" element={<Chatbot />} /> 
+          
         </Routes>
       </Router>
     </Container>

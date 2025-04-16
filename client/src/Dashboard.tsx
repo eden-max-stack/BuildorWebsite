@@ -5,7 +5,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase/config";  
 import DashboardNavBar from "./components/DashboardNavBar";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
-import { Container, Box, Card, CardContent, Typography, Avatar, Button, IconButton, List, ListItem, ListItemIcon, ListItemText, Link } from "@mui/material";
+import { Container, Box, Card, CardContent, Typography, Avatar, Button, IconButton, List, ListItem, ListItemIcon, ListItemText, Link, CardActionArea } from "@mui/material";
 import axios from 'axios';
 import AppTheme from "./theme/AppTheme";
 import LeftPanel from "./components/LeftPanel";
@@ -22,10 +22,6 @@ const Dashboard: React.FC = (props: { disableCustomTheme?: boolean }) => {
         console.error("GitHub token not found");
         return;
     }
-    const repos = [
-    { name: "Buildor", url: "https://github.com/akshada/buildor" },
-    { name: "AI-Helper", url: "https://github.com/akshada/ai-helper" },
-    ];
 
     const workedWith = [
     { name: "John Doe", url: "#" },
@@ -221,8 +217,8 @@ const Dashboard: React.FC = (props: { disableCustomTheme?: boolean }) => {
                 >
 
                 <Box sx = {{ textAlign: "right"}}>
-                  <Typography variant="h1" fontWeight={1000} fontSize={75}>welcome back,</Typography>
-                  <Typography variant="h1" fontWeight={1000} fontSize={100} color="primary.dark" sx={(theme) => ({
+                  <Typography variant="h1" fontWeight={800} fontSize={45}>Welcome back,</Typography>
+                  <Typography variant="h1" fontWeight={800} fontSize={55} color="primary.dark" sx={(theme) => ({
                 color: 'primary.main',
                 ...theme.applyStyles('dark', {
                   color: 'primary.light',
@@ -233,64 +229,92 @@ const Dashboard: React.FC = (props: { disableCustomTheme?: boolean }) => {
                 <TrendingTechStackChart />
 
                 {/* Achievements Section */}
-                <Card sx={{ p: 3, mb: 3 }}>
-                <Typography variant="h2" fontWeight={600} mb={2}>
-                    🥇 Achievements
-                </Typography>
-                {user.achievements && user.achievements.length > 0 ? (
-                    <List>
-                    {user.achievements.map((ach, index) => (
-                        <ListItem key={index}>
-                        <ListItemIcon>
-                            <StarIcon color="primary" />
-                        </ListItemIcon>
-                        <ListItemText primary={ach} />
-                        </ListItem>
-                    ))}
-                    </List>
-                ) : (
-                    <Typography color="text.secondary">No achievements found.</Typography>
-                )}
+                <Card sx={{ p: 3, mb: 3, borderRadius: 3, boxShadow: 3, backgroundColor: "#f5f5f5" }}>
+                    <Typography variant="h4" fontWeight={600} mb={2} color="black">
+                        🥇 Achievements
+                    </Typography>
+                    {user.achievements && user.achievements.length > 0 ? (
+                        <List>
+                            {user.achievements.map((ach, index) => (
+                                <ListItem key={index} sx={{ mb: 2, borderRadius: 2, backgroundColor: "#ffffff", transition: "all 0.3s", "&:hover": { backgroundColor: "#f0f0f0", transform: "scale(1.02)" } }}>
+                                    <ListItemIcon>
+                                        <StarIcon color="primary" />
+                                    </ListItemIcon>
+                                    <ListItemText 
+                                        primary={ach}
+                                        sx={{ fontWeight: 600 }}
+                                    />
+                                </ListItem>
+                            ))}
+                        </List>
+                    ) : (
+                        <Typography color="text.secondary">No achievements found.</Typography>
+                    )}
                 </Card>
+
 
 
                 {/* GitHub Repositories */}
-                <Card sx={{ p: 3, mb: 3 }}>
-                <Typography variant="h2" fontWeight={600} mb={2}>
-                    💻 GitHub Repositories
-                </Typography>
-                {user.githubRepos && user.githubRepos.length > 0 ? (
-                    <List>
-                    {user.githubRepos.map((repo, index) => (
-                        <ListItem key={index}>
-                        <ListItemIcon>
-                            <GitHubIcon color="secondary" />
-                        </ListItemIcon>
-                        <ListItemText
-                            primary={
-                            <Link target="_blank" rel="noopener noreferrer" color="primary">
-                                {repo}
-                            </Link>
-                            }
-                        />
-                        </ListItem>
-                    ))}
-                    </List>
-                ) : (
-                    <Typography color="text.secondary">No GitHub repositories found.</Typography>
-                )}
+                <Card sx={{ p: 3, mb: 3, borderRadius: 3, boxShadow: 3, backgroundColor: "#f5f5f5" }}>
+                    <Typography variant="h4" fontWeight={600} mb={2} color="black">
+                        💻 GitHub Repositories
+                    </Typography>
+                    {user.githubRepos && user.githubRepos.length > 0 ? (
+                        <List>
+                            {user.githubRepos.map((repo, index) => (
+                                <ListItem key={index} sx={{ mb: 2, borderRadius: 2, backgroundColor: "#ffffff", transition: "all 0.3s", "&:hover": { backgroundColor: "#f0f0f0", transform: "scale(1.02)" } }}>
+                                    <ListItemIcon>
+                                        <GitHubIcon color="primary" />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                        primary={
+                                            <Link 
+                                                href={`https://github.com/eden-max-stack/${repo}`} 
+                                                target="_blank" 
+                                                rel="noopener noreferrer" 
+                                                sx={{ color: "primary.main", fontWeight: 600, textDecoration: "none", "&:hover": { textDecoration: "underline" } }}
+                                            >
+                                                {repo}
+                                            </Link>
+                                        }
+                                    />
+                                </ListItem>
+                            ))}
+                        </List>
+                    ) : (
+                        <Typography color="text.secondary">No GitHub repositories found.</Typography>
+                    )}
                 </Card>
 
-                <Card sx={{ p: 3, mb: 3 }}>
-                    <Typography variant="h2" fontWeight={600} mb={2}>👥 Worked With</Typography>
-                    {workedWith.map((person, index) => (
-                        <Typography key={index}>
-                            <a href={person.url} target="_blank" rel="noopener noreferrer" style={{ color: "#007bff", textDecoration: "none" }}>
-                                {person.name}
-                            </a>
-                        </Typography>
-                    ))}
-                </Card>   
+
+                <Card sx={{ p: 3, mb: 3, borderRadius: 3, boxShadow: 3, backgroundColor: "#f5f5f5" }}>
+                    <Typography variant="h4" fontWeight={600} mb={2} color="black">
+                        👥 Worked With
+                    </Typography>
+                    {workedWith.length > 0 ? (
+                        <List>
+                            {workedWith.map((person, index) => (
+                                <ListItem key={index} sx={{ mb: 2, borderRadius: 2, backgroundColor: "#ffffff", transition: "all 0.3s", "&:hover": { backgroundColor: "#f0f0f0", transform: "scale(1.02)" } }}>
+                                    <ListItemText
+                                        primary={
+                                            <Link 
+                                                href={person.url} 
+                                                target="_blank" 
+                                                rel="noopener noreferrer" 
+                                                sx={{ color: "primary.main", fontWeight: 600, textDecoration: "none", "&:hover": { textDecoration: "underline" } }}
+                                            >
+                                                {person.name}
+                                            </Link>
+                                        }
+                                    />
+                                </ListItem>
+                            ))}
+                        </List>
+                    ) : (
+                        <Typography color="text.secondary">No collaborators found.</Typography>
+                    )}
+                </Card>
+   
             </Box>
         </Box>
     </AppTheme>

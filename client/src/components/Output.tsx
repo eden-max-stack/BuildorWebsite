@@ -3,7 +3,11 @@ import {
   Box, Button, Typography, Snackbar, Alert, CircularProgress, Paper
 } from "@mui/material";
 import { executeCode } from "./api";
+import axios from "axios";
 import { generateFeedback } from "../../src/parser/code-parser";
+import { useParams } from 'react-router-dom';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
 
 const Output = ({ editorRef, language, optimalSolution = "" }) => {
   const [output, setOutput] = useState<string | null>(null);
@@ -13,15 +17,41 @@ const Output = ({ editorRef, language, optimalSolution = "" }) => {
   const [hint, setHint] = useState<string | null>(null);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
 
-  console.log("Optimal Solution:", optimalSolution);
+  const {problemId} = useParams();
 
-  const getHint = () => {
+  console.log("Optimal Solution:", optimalSolution);
+  const getOptimalCode = async() => {
+
+    try {
+      console.log(`Fetching problem ${problemId} from API...`);
+      const response = await axios.get(`http://localhost:8087/api/problems/${encodeURIComponent(problemId)}`);  
+      return response.data.problem.optimalCode;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  const getHint = async () => {
     if (!editorRef.current) return;
     const userCode = editorRef.current.getValue();
     if (!userCode) return;
+    try {
+      const optimalCode = await getOptimalCode();
+      const feedback = await axios.post("http://localhost:8000/compare-code", {
+        student_code: userCode,
+        optimal_code: optimalCode
+      })
 
-    const feedback = generateFeedback(userCode, optimalSolution);
-    setHint(feedback.length ? feedback.join("\n") : "Your logic looks good!");
+      console.log(feedback.data);
+
+      if (Object.keys(feedback.data).length > 0) {
+        const combinedHints = Object.values(feedback.data).join("\n");
+        setHint(combinedHints);
+      } else {
+        setHint("Your logic looks good!");
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   const runCode = async () => {
@@ -48,6 +78,7 @@ const Output = ({ editorRef, language, optimalSolution = "" }) => {
       setErrorMessage(error);
 
       console.log("User Output:", userOutput);
+      console.log
 
       if (optimalSolution && userOutput === optimalSolution.trim()) {
         setIsCorrect(true);
@@ -90,10 +121,29 @@ const Output = ({ editorRef, language, optimalSolution = "" }) => {
 
       {/* Hint Display */}
       {hint && (
-        <Alert severity="info" sx={{ mb: 2 }}>
-          {hint}
+        <Alert 
+          severity={hint === "Your logic looks good!" ? "success" : "info"} 
+          icon={hint === "Your logic looks good!" ? (
+            <CheckCircleIcon sx={{ color: hint === "Your logic looks good!" ? "#155724" : "#ffffff" }} />
+          ) : (
+            <ErrorIcon sx={{ color: "#ffffff" }} />
+          )}
+      
+          sx={{
+            mb: 2, 
+            backgroundColor: hint === "Your logic looks good!" ? "#d4edda" : "#ff2c2c", // light green color
+            color: hint === "Your logic looks good!" ? "#155724" : "#ffffff", // darker green text color
+          }}
+        >
+          <ul style={{ margin: 0, paddingLeft: "1.2rem", listStyleType: "decimal" }}>
+            {hint.split("\n").map((line, index) => (
+              <li key={index}>{line}</li>
+            ))}
+          </ul>
         </Alert>
       )}
+
+
 
       {/* Output Box */}
       <Paper

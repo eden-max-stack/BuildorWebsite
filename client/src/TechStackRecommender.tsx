@@ -3,11 +3,11 @@ import { useState, useEffect } from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppTheme from "./theme/AppTheme";
 import DashboardNavBar from "./components/DashboardNavBar";
-import LeftPanel from "./components/LeftPanel";
 import { Box, Card, Typography, Button, Grid } from "@mui/material";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from "recharts";
 import TechStackPanel from "./components/TechStackPanel";
 import axios from "axios";
+import { Chat as ChatIcon } from "@mui/icons-material";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A28DFF"];
 
@@ -135,6 +135,10 @@ export default function TechStackRecommender(props: { disableCustomTheme?: boole
         careerGoal: "Full stack dev",
         profilePic: "helloworld"
     }
+    
+    const navigateToChatbot = () => {
+        window.location.href = "/chatbot";
+    };
 
     return (
         <AppTheme {...props}>
@@ -142,75 +146,128 @@ export default function TechStackRecommender(props: { disableCustomTheme?: boole
             <DashboardNavBar />
             
             {/* Layout Container */}
-            <Box sx={{ display: "flex", mt: 8, pt: 2, backgroundColor: 'transparent' }}>
-                {/* Left Section (Stacked Left Panel & Tech Stack Panel) */}
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                    <LeftPanel />
+            <Box sx={{ display: "flex", flexDirection: "column", mt: 8, pt: 2, backgroundColor: 'transparent', px: 4 }}>
+                {/* Fixed Chatbot Navigation Button */}
+                <Box 
+                    sx={{ 
+                        position: 'fixed', 
+                        bottom: 20, 
+                        right: 20, 
+                        zIndex: 1000 
+                    }}
+                >
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        size="large"
+                        startIcon={<ChatIcon />}
+                        onClick={navigateToChatbot}
+                        sx={{ 
+                            borderRadius: 8, 
+                            px: 3, 
+                            py: 1.5, 
+                            boxShadow: 4,
+                            backgroundColor: '#0088FE',
+                            '&:hover': {
+                                backgroundColor: '#0066cc'
+                            }
+                        }}
+                    >
+                        Chat with AI Advisor
+                    </Button>
                 </Box>
+
+                {/* Chatbot Navigation Section */}
+                <Card sx={{ p: 3, mb: 3, borderRadius: 3, boxShadow: 3, backgroundColor: "#e3f2fd", width: "100%" }}>
+                    <Grid container alignItems="center" spacing={2}>
+                        <Grid item xs={12} md={8}>
+                            <Typography variant="h4" fontWeight={600}>
+                                Need personalized tech guidance?
+                            </Typography>
+                            <Typography variant="body1" sx={{ mt: 1 }}>
+                                Chat with our AI advisor to get customized recommendations for your career path and current skills.
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12} md={4} sx={{ textAlign: { xs: 'left', md: 'right' } }}>
+                            <Button 
+                                variant="contained" 
+                                size="large" 
+                                startIcon={<ChatIcon />}
+                                onClick={navigateToChatbot}
+                                sx={{ 
+                                    px: 3, 
+                                    py: 1.5,
+                                    backgroundColor: '#0088FE',
+                                    '&:hover': {
+                                        backgroundColor: '#0066cc'
+                                    }
+                                }}
+                            >
+                                Start Chatting
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Card>
 
                 {/* Main Content */}
-                <Box sx={{ flexGrow: 1, ml: "340px", pr: 2, maxWidth: "1000px", textAlign: "left" }}>
-                    {/* Your Tech Stack */}
-                    <Card sx={{ p: 3, mb: 3 }}>
-                        <Typography variant="h2" fontWeight={600} mb={2}>Your Tech Stack</Typography>
-                        <ResponsiveContainer width="100%" height={250}>
-                            {techStack.length > 0 ? (
-                                <PieChart>
-                                    <Pie data={techStack} dataKey="value" outerRadius={80} label>
-                                        {techStack.map((_, index) => (
-                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                        ))}
-                                    </Pie>
-                                    <Tooltip />
-                                </PieChart>
-                            ) : (
-                                <Typography>No Tech Stack Data Available</Typography>
-                            )}
-                        </ResponsiveContainer>
-
-                    </Card>
-
-                    {/* Tech Stack Recommendations */}
-                    <Card sx={{ p: 3, mb: 3 }}>
-                        <Typography variant="h2" fontWeight={600} mb={2}>🔥 Recommended Technologies</Typography>
-                        <Grid container spacing={2}>
-                            {recommendedTech.map((tech, index) => (
-                                <Grid item xs={6} md={3} key={index}>
-                                    <Card sx={{ p: 2, textAlign: "center", bgcolor: "#f5f5f5" }}>
-                                        <Typography fontWeight={600}>{tech}</Typography>
-                                    </Card>
-                                </Grid>
-                            ))}
-                        </Grid>
-                    </Card>
-
-                    {/* Tech Trends Chart */}
-                    <Card sx={{ p: 3, mb: 3 }}>
-                        <Typography variant="h2" fontWeight={600} mb={2}>📊 Tech Trends</Typography>
-                        <ResponsiveContainer width="100%" height={250}>
-                            <BarChart data={techTrends}>
-                                <XAxis dataKey="name" />
-                                <YAxis />
+                {/* Your Tech Stack */}
+                <Card sx={{ p: 3, mb: 3, borderRadius: 3, boxShadow: 3, backgroundColor: "#f5f5f5", width: "100%" }}>
+                    <Typography variant="h4" fontWeight={600} mb={2}>Your Tech Stack</Typography>
+                    <ResponsiveContainer width="100%" height={250}>
+                        {techStack.length > 0 ? (
+                            <PieChart>
+                                <Pie data={techStack} dataKey="value" outerRadius={80} label>
+                                    {techStack.map((_, index) => (
+                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                    ))}
+                                </Pie>
                                 <Tooltip />
-                                <Bar dataKey="popularity" fill="#8884d8" />
-                            </BarChart>
-                        </ResponsiveContainer>
-                    </Card>
+                            </PieChart>
+                        ) : (
+                            <Typography>No Tech Stack Data Available</Typography>
+                        )}
+                    </ResponsiveContainer>
+                </Card>
 
-                    {/* Learning Resources */}
-                    <Card sx={{ p: 3, mb: 3 }}>
-                        <Typography variant="h2" fontWeight={600} mb={2}>🎓 Learning Resources</Typography>
-                        {learningResources.map((resource, index) => (
-                            <Typography key={index}>
-                                <a href={resource.url} target="_blank" rel="noopener noreferrer" style={{ color: "#007bff", textDecoration: "none" }}>
-                                    {resource.name}
-                                </a>
-                            </Typography>
+                {/* Tech Stack Recommendations */}
+                <Card sx={{ p: 3, mb: 3, borderRadius: 3, boxShadow: 3, backgroundColor: "#f5f5f5", width: "100%" }}>
+                    <Typography variant="h4" fontWeight={600} mb={2}>🔥 Recommended Technologies</Typography>
+                    <Grid container spacing={2}>
+                        {recommendedTech.map((tech, index) => (
+                            <Grid item xs={6} md={3} key={index}>
+                                <Card sx={{ p: 2, textAlign: "center", bgcolor: "#FDFD96" }}>
+                                    <Typography fontWeight={600}>{tech}</Typography>
+                                </Card>
+                            </Grid>
                         ))}
-                    </Card>
-                </Box>
-            </Box>
+                    </Grid>
+                </Card>
 
+                {/* Tech Trends Chart */}
+                <Card sx={{ p: 3, mb: 3, borderRadius: 3, boxShadow: 3, backgroundColor: "#f5f5f5", width: "100%" }}>
+                    <Typography variant="h4" fontWeight={600} mb={2} color="black">📊 Tech Trends</Typography>
+                    <ResponsiveContainer width="100%" height={250}>
+                        <BarChart data={techTrends}>
+                            <XAxis dataKey="name" />
+                            <YAxis />
+                            <Tooltip />
+                            <Bar dataKey="popularity" fill="#8884d8" />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </Card>
+
+                {/* Learning Resources */}
+                <Card sx={{ p: 3, mb: 3, borderRadius: 3, boxShadow: 3, backgroundColor: "#f5f5f5", width: "100%" }}>
+                    <Typography variant="h4" fontWeight={600} mb={2} color="black">🎓 Learning Resources</Typography>
+                    {learningResources.map((resource, index) => (
+                        <Typography key={index}>
+                            <a href={resource.url} target="_blank" rel="noopener noreferrer" style={{ color: "#007bff", textDecoration: "none" }}>
+                                {resource.name}
+                            </a>
+                        </Typography>
+                    ))}
+                </Card>
+            </Box>
         </AppTheme>
     );
 }

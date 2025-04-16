@@ -37,10 +37,8 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   borderRadius: 0,
   backdropFilter: "blur(24px)",
   border: "1px solid",
-  borderColor: (theme.vars || theme).palette.divider,
-  backgroundColor: theme.vars
-    ? `rgba(${theme.vars.palette.background.defaultChannel} / 0.4)`
-    : alpha(theme.palette.background.default, 0.4),
+  borderColor: "#374151", // Dark color for border
+  backgroundColor: "#f5f5f5", // Light background color
   boxShadow: (theme.vars || theme).shadows[1],
   padding: "8px 12px",
 }));
@@ -111,6 +109,15 @@ export default function DashboardNavBar() {
 
         {/* Right: Profile & Theme Toggle */}
         <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+          <MenuItem onClick={() => navigate("/dashboard")}>
+            <ListItemText primary="Dashboard" sx={{ color: textColor }} />
+          </MenuItem>
+          <MenuItem onClick={() => navigate("/tech-stack-recommender")}>
+            <ListItemText primary="Tech Stack Recommender" sx={{ color: textColor }} />
+          </MenuItem>
+          <MenuItem onClick={() => navigate("/coding-practice")}>
+            <ListItemText primary="Coding Platform" sx={{ color: textColor }} />
+          </MenuItem>
           <ColorModeIconDropdown />
           <IconButton onClick={handleProfileMenuOpen} sx={{ color: iconColor }}>
             <AccountCircleIcon />
@@ -132,7 +139,7 @@ export default function DashboardNavBar() {
                 color="primary"
                 variant="outlined"
                 fullWidth
-                sx={{ color: textColor, borderColor: textColor }}
+                sx={{ color: "#ffffff", borderColor: "ffffff" }}
               >
                 Sign Out
               </Button>
@@ -175,20 +182,10 @@ export default function DashboardNavBar() {
           <MenuList>
             {[
               {
-                label: "Dashboard",
+                label: "Profile Setup",
                 icon: <DashboardIcon fontSize="small" />,
-                path: "/dashboard",
-              },
-              {
-                label: "Tech Stack Recommender",
-                icon: <LayersIcon fontSize="small" />,
-                path: "/tech-stack-recommender",
-              },
-              {
-                label: "Coding Platform",
-                icon: <CodeIcon fontSize="small" />,
-                path: "/coding-practice",
-              },
+                path: "/profile-setup",
+              }
             ].map(({ label, icon, path }) => (
               <MenuItem
                 key={path}

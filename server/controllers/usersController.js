@@ -12,15 +12,16 @@ const inviteUsers = async (req, res) => {
     try {
         const { invitedUserId } = req.body; // Extract invited user ID from request body
 
+        console.log(invitedUserId);
         if (!invitedUserId) {
         return res.status(400).json({ error: "Invited user ID is required" });
         }
 
-        // Assuming req.user contains the ID of the logged-in user
-        const invitingUserId = req.user?.id; // You might extract from JWT if using authentication
+        console.log(req);
+        const invitingUserId = req.user?.uid;
 
         // Find the inviting user
-        const invitingUser = await User.findById(invitingUserId);
+        const invitingUser = await Users.findById(invitingUserId);
         if (!invitingUser) {
         return res.status(404).json({ error: "Inviting user not found" });
         }

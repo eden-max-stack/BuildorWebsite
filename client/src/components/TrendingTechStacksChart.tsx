@@ -11,8 +11,8 @@ const techTrends = [
 
 export default function TrendingTechStackChart() {
     return (
-        <Card sx={{ p: 3, mb: 3 }}>
-            <Typography variant="h2" fontWeight={600} mb={2}>
+        <Card sx={{ p: 3, mb: 3, borderRadius: 3, boxShadow: 3, backgroundColor: "#f5f5f5" }}>
+            <Typography variant="h4" fontWeight={600} mb={2} color="black">
                 📈 Trending Tech Stacks
             </Typography>
             <ResponsiveContainer width="100%" height={300}>

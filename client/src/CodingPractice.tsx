@@ -79,7 +79,7 @@ function CodingPractice(props: { disableCustomTheme?: boolean }) {
             <Box>
               {/* 🚀 Heading + Add Question Button */}
               <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-between", mb: 2 }}>
-                <Typography variant="h4" fontWeight={600}>
+                <Typography variant="h4" fontWeight={600} color="primary">
                   🚀 Coding Problems
                 </Typography>
                 <Button
@@ -113,13 +113,16 @@ function CodingPractice(props: { disableCustomTheme?: boolean }) {
             
             {/* Left Half - Problem Description */}
             <Box sx={{ width: "50%", height: "100%", p: 2, overflowY: "auto", bgColor: 'transparent' }}>
-            <Button onClick={() => {
-              navigate("/coding-practice");
-              setCurrentProblem(null); // Ensure the editor is hidden
-            }} sx={{ mb: 2 }}>
-              🔙 Back to Problems
-            </Button>
-              <Paper sx={{ p: 2, bgcolor: "transparent", textAlign: "left" }}>
+            <Box display="flex" justifyContent="space-between">
+              <Typography variant="h3" fontWeight="500">Problem Description</Typography>
+              <Button onClick={() => {
+                navigate("/coding-practice");
+                setCurrentProblem(null); // Ensure the editor is hidden
+              }} sx={{ mb: 2 }}>
+                🔙 Back to Problems
+              </Button>
+            </Box>
+              <Paper sx={{ p: 2, bgcolor: "#90d5ff", textAlign: "left", p: 5 }}>
                 <Typography color="primary.dark" variant="h5" fontWeight={600}>
                   {currentProblem ? currentProblem.name : "Loading..."}
                 </Typography>

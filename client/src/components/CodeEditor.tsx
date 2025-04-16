@@ -10,9 +10,9 @@ import useFullscreenProctoring from "./useFullScreenProctoring";
 import axios from "axios"; // Import Axios
 
 const CodeEditor = ({ problemId }: { problemId: string }) => {
-  useProctoring();
-  useTabRestriction();
-  useFullscreenProctoring();
+  // useProctoring();
+  // useTabRestriction();
+  // useFullscreenProctoring();
 
   console.log("Received problemId in CodeEditor:", problemId);
 
@@ -56,16 +56,16 @@ const CodeEditor = ({ problemId }: { problemId: string }) => {
     setValue(CODE_SNIPPETS[newLanguage]); // Reset to default when language changes
   };
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && ["c", "v", "x"].includes(e.key.toLowerCase())) {
-        e.preventDefault();
-      }
-    };
+  // useEffect(() => {
+  //   const handleKeyDown = (e: KeyboardEvent) => {
+  //     if ((e.ctrlKey || e.metaKey) && ["c", "v", "x"].includes(e.key.toLowerCase())) {
+  //       e.preventDefault();
+  //     }
+  //   };
   
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  //   document.addEventListener("keydown", handleKeyDown);
+  //   return () => document.removeEventListener("keydown", handleKeyDown);
+  // }, []);
   
 
   return (
@@ -101,9 +101,9 @@ const CodeEditor = ({ problemId }: { problemId: string }) => {
                 editorRef.current = editor;
                 editor.focus();
               }}
-              onCopy={(e) => e.preventDefault()} // Disable copying
-              onCut={(e) => e.preventDefault()} // Disable cutting
-              onPaste={(e) => e.preventDefault()} // Disable pasting
+              // onCopy={(e) => e.preventDefault()} // Disable copying
+              // onCut={(e) => e.preventDefault()} // Disable cutting
+              // onPaste={(e) => e.preventDefault()} // Disable pasting
               onChange={(newValue) => setValue(newValue)}
             />
           </Box>
